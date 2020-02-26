@@ -6,7 +6,11 @@ import Button from '../components/Button';
 
 import {LOGO} from '../../assets/image';
 
-const Hello = () => {
+const Hello = ({navigation}) => {
+  const handleScreenNavigate = to => {
+    navigation.navigate(to);
+  };
+
   return (
     <StyledHello>
       <ThumbWrapper>
@@ -18,8 +22,10 @@ const Hello = () => {
         </HelloText>
       </ThumbWrapper>
       <ButtonWrapper>
-        <Button>Sign Up</Button>
-        <Button mode="text">Log In</Button>
+        <Button onPress={() => handleScreenNavigate('SignUp')}>Sign Up</Button>
+        <Button onPress={() => handleScreenNavigate('LogIn')} mode="text">
+          Log In
+        </Button>
       </ButtonWrapper>
     </StyledHello>
   );

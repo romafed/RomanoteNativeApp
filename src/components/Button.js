@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import styled, {ThemeContext} from 'styled-components';
 import {Button as ButtonPaper} from 'react-native-paper';
 
-const Button = ({mode = 'contained', children}) => {
+const Button = ({mode = 'contained', onPress, children}) => {
   const theme = useContext(ThemeContext);
   const color =
     mode === 'contained'
@@ -10,6 +10,7 @@ const Button = ({mode = 'contained', children}) => {
       : theme.dark.color || theme.light.color;
   return (
     <StyledButton
+      onPress={onPress}
       mode={mode}
       labelStyle={{
         color: color,
