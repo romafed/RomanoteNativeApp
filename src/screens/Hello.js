@@ -1,27 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// Components
+import Button from '../components/Button';
+
 import {LOGO} from '../../assets/image';
 
 const Hello = () => {
   return (
     <StyledHello>
-      <Logo source={LOGO} />
-      <HeaderText>Romanote</HeaderText>
-      <HelloText>
-        The simplest way to keep notes like
-        <HeaderText size="20px"> Roman.</HeaderText>
-      </HelloText>
+      <ThumbWrapper>
+        <Logo source={LOGO} />
+        <HeaderText>Romanote</HeaderText>
+        <HelloText>
+          The simplest way to keep notes like
+          <HeaderText size="20px"> Roman.</HeaderText>
+        </HelloText>
+      </ThumbWrapper>
+      <ButtonWrapper>
+        <Button>Sign Up</Button>
+        <Button mode="text">Log In</Button>
+      </ButtonWrapper>
     </StyledHello>
   );
 };
 
 const StyledHello = styled.View`
   flex: 1;
+  position: relative;
   background-color: ${props =>
     props.theme.dark.backgroundColor || props.theme.light.backgroundColor};
   align-items: center;
   justify-content: center;
+  padding-bottom: 20px;
+`;
+
+const ThumbWrapper = styled.View`
+  flex: 1;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonWrapper = styled.View`
+  flex: 1;
+  justify-content: flex-end;
 `;
 
 const HeaderText = styled.Text`
@@ -34,6 +57,7 @@ const HeaderText = styled.Text`
 const HelloText = styled.Text`
   color: ${props => props.theme.dark.color || props.theme.light.color};
   text-align: center;
+  font-size: 17px;
 `;
 
 const Logo = styled.Image`
