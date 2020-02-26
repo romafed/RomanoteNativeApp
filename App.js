@@ -5,13 +5,14 @@
  * @format
  * @flow
  */
-import 'react-native-gesture-handler';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {StatusBar} from 'react-native';
 import {ThemeProvider} from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
+import ScreenTransitionAnimation from './animations/screen';
 
 // Components
 import Hello from './src/screens/Hello';
@@ -72,9 +73,21 @@ const App = () => {
               headerTransparent: true,
             }}
             initialRouteName="Hello">
-            <Stack.Screen name="Hello" component={Hello} />
-            <Stack.Screen name="LogIn" component={LogIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen
+              options={{...ScreenTransitionAnimation}}
+              name="Hello"
+              component={Hello}
+            />
+            <Stack.Screen
+              options={{...ScreenTransitionAnimation}}
+              name="LogIn"
+              component={LogIn}
+            />
+            <Stack.Screen
+              options={{...ScreenTransitionAnimation}}
+              name="SignUp"
+              component={SignUp}
+            />
           </Stack.Navigator>
         </AppWrapper>
       </ThemeProvider>
