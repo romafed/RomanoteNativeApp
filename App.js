@@ -7,7 +7,6 @@
  */
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {StatusBar} from 'react-native';
 import {ThemeProvider} from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,7 +17,7 @@ import ScreenTransitionAnimation from './animations/screen';
 import Hello from './src/screens/Hello';
 import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
-import {Switch} from 'react-native-paper';
+import NavigationHeader from './src/components/NavigationHeader';
 
 // Theme config
 const lightTheme = {
@@ -53,21 +52,16 @@ const App = () => {
               header: ({scene}) => {
                 const {options} = scene.descriptor;
                 return (
-                  <>
-                    <StatusBar
-                      backgroundColor={
-                        isSwitchOn
-                          ? darkTheme.dark.backgroundColor
-                          : lightTheme.light.backgroundColor
-                      }
-                    />
-                    <Switch
-                      color="white"
-                      onValueChange={() => setSwitchOn(!isSwitchOn)}
-                      value={isSwitchOn}
-                      style={options.headerStyle}
-                    />
-                  </>
+                  <NavigationHeader
+                    backgroundColor={
+                      isSwitchOn
+                        ? darkTheme.dark.backgroundColor
+                        : lightTheme.light.backgroundColor
+                    }
+                    onSwitch={() => setSwitchOn(!isSwitchOn)}
+                    value={isSwitchOn}
+                    style={options.headerStyle}
+                  />
                 );
               },
               headerTransparent: true,
