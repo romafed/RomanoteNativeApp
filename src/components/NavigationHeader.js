@@ -6,7 +6,7 @@ const NavigationHeader = ({backgroundColor, onSwitch, value, style}) => {
   return (
     <Header style={style}>
       <StatusBar backgroundColor={backgroundColor} />
-      <Switch
+      <StyledSwitch
         thumbColor={value ? 'rgb(255,255,255)' : 'rgb(56,39,22)'}
         trackColor={{
           false: 'rgba(56,39,22,0.7)',
@@ -22,5 +22,10 @@ const NavigationHeader = ({backgroundColor, onSwitch, value, style}) => {
 
 const Header = styled.View`
   width: 100%;
+  padding: 10px;
+  align-items: flex-end;
+`;
+const StyledSwitch = styled(Switch)`
+  max-width: 50px;
 `;
 export default NavigationHeader;
