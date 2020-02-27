@@ -1,11 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
-import {ThemeContext} from 'styled-components';
 import {Button as ButtonUi} from 'react-native-elements';
 
 const Button = ({type = 'solid', onPress, children}) => {
-  const theme = useContext(ThemeContext);
-  console.log(theme);
   return (
     <ButtonUi
       type={type}
@@ -20,7 +17,6 @@ const Button = ({type = 'solid', onPress, children}) => {
 const {buttonStyle, titleStyle} = StyleSheet.create({
   buttonStyle: {
     width: 250,
-    color: 'red',
   },
   titleStyle: {},
 });

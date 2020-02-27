@@ -5,9 +5,8 @@
  * @format
  * @flow
  */
-import React, {useState} from 'react';
-import styled from 'styled-components';
-import {ThemeProvider} from 'styled-components';
+import React, {useState, useContext, useEffect} from 'react';
+import {ThemeContext} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -19,81 +18,56 @@ import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
 import NavigationHeader from './src/components/NavigationHeader';
 
-// Theme config
-const lightTheme = {
-  light: {
-    color: 'rgb(56,39,22)',
-    backgroundColor: 'rgb(233, 224, 182)',
-    buttonBackColor: 'rgb(255,255,255)',
-  },
-  dark: false,
-};
-
-const darkTheme = {
-  dark: {
-    color: 'rgb(255,255,255)',
-    backgroundColor: 'rgb(0,0,0)',
-    buttonBackColor: 'black',
-  },
-  light: false,
-};
+// Theme
+import themes from './src/theme/Theme';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   const [isSwitchOn, setSwitchOn] = useState(false);
+  const {theme, replaceTheme} = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (isSwitchOn) return replaceTheme(themes.dark);
+    replaceTheme(themes.light);
+  }, [isSwitchOn, replaceTheme]);
 
   return (
     <NavigationContainer>
-      <ThemeProvider theme={isSwitchOn ? darkTheme : lightTheme}>
-        <AppWrapper>
-          <Stack.Navigator
-            screenOptions={{
-              header: ({scene}) => {
-                const {options} = scene.descriptor;
-                return (
-                  <NavigationHeader
-                    backgroundColor={
-                      isSwitchOn
-                        ? darkTheme.dark.backgroundColor
-                        : lightTheme.light.backgroundColor
-                    }
-                    onSwitch={() => setSwitchOn(!isSwitchOn)}
-                    value={isSwitchOn}
-                    style={options.headerStyle}
-                  />
-                );
-              },
-              headerTransparent: true,
-            }}
-            initialRouteName="Hello">
-            <Stack.Screen
-              options={{...ScreenTransitionAnimation}}
-              name="Hello"
-              component={Hello}
-            />
-            <Stack.Screen
-              options={{...ScreenTransitionAnimation}}
-              name="LogIn"
-              component={LogIn}
-            />
-            <Stack.Screen
-              options={{...ScreenTransitionAnimation}}
-              name="SignUp"
-              component={SignUp}
-            />
-          </Stack.Navigator>
-        </AppWrapper>
-      </ThemeProvider>
+      <Stack.Navigator
+        screenOptions={{
+          header: ({scene}) => {
+            const {options} = scene.descriptor;
+            return (
+              <NavigationHeader
+                backgroundColor={theme.colors.backgroundColor}
+                onSwitch={() => setSwitchOn(!isSwitchOn)}
+                value={isSwitchOn}
+                style={options.headerStyle}
+              />
+            );
+          },
+          headerTransparent: true,
+        }}
+        initialRouteName="Hello">
+        <Stack.Screen
+          options={{...ScreenTransitionAnimation}}
+          name="Hello"
+          component={Hello}
+        />
+        <Stack.Screen
+          options={{...ScreenTransitionAnimation}}
+          name="LogIn"
+          component={LogIn}
+        />
+        <Stack.Screen
+          options={{...ScreenTransitionAnimation}}
+          name="SignUp"
+          component={SignUp}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const AppWrapper = styled.View`
-  flex: 1;
-  position: relative;
-  background-color: ${props =>
-    props.theme.dark.backgroundColor || props.theme.light.backgroundColor};
-`;
 
 export default App;

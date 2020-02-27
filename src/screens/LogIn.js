@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {ThemeContext} from 'react-native-elements';
 import styled from 'styled-components';
 
 const LogIn = () => {
+  const {theme} = useContext(ThemeContext);
   return (
-    <StyledLogIn>
-      <HeaderText>Log in</HeaderText>
+    <StyledLogIn backgroundColor={theme.colors.backgroundColor}>
+      <HeaderText color={theme.colors.textColor}>Log in</HeaderText>
     </StyledLogIn>
   );
 };
@@ -12,14 +14,13 @@ const LogIn = () => {
 const StyledLogIn = styled.View`
   flex: 1;
   position: relative;
-  background-color: ${props =>
-    props.theme.dark.backgroundColor || props.theme.light.backgroundColor};
+  background-color: ${props => props.backgroundColor};
   align-items: center;
   justify-content: center;
 `;
 
 const HeaderText = styled.Text`
-  color: ${props => props.theme.dark.color || props.theme.light.color};
+  color: ${props => props.color || 'black'};
 `;
 
 export default LogIn;

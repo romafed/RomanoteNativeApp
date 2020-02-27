@@ -10,9 +10,14 @@ import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import store from './src/store/store';
 
+import {ThemeProvider} from 'react-native-elements';
+import theme from './src/theme/Theme';
+
 const AppWrapper = () => (
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme.light}>
+      <App />
+    </ThemeProvider>
   </Provider>
 );
 
