@@ -6,7 +6,7 @@ import {
 const animation = {
   gestureEnabled: true,
   gestureResponseDistance: {
-    vertical: 500,
+    vertical: 70,
   },
   gestureDirection: 'vertical',
   transitionSpec: {

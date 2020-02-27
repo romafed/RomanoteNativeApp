@@ -1,8 +1,22 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Button as ButtonUi} from 'react-native-elements';
+import React, {useContext} from 'react';
+import {Button as ButtonUi, ThemeContext} from 'react-native-elements';
 
 const Button = ({type = 'solid', onPress, children}) => {
+  const {theme} = useContext(ThemeContext);
+  const buttonStyle = {
+    width: 250,
+    backgroundColor: type === 'solid' ? theme.colors.textColor : 'transparent',
+  };
+  const titleStyle = {
+    color:
+      theme.colors.textColor === 'rgb(255,255,255)'
+        ? type === 'solid'
+          ? 'black'
+          : theme.colors.textColor
+        : type === 'clear'
+        ? 'rgb(56,39,22)'
+        : 'white',
+  };
   return (
     <ButtonUi
       type={type}
@@ -13,12 +27,5 @@ const Button = ({type = 'solid', onPress, children}) => {
     />
   );
 };
-
-const {buttonStyle, titleStyle} = StyleSheet.create({
-  buttonStyle: {
-    width: 250,
-  },
-  titleStyle: {},
-});
 
 export default Button;

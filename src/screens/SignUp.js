@@ -9,6 +9,7 @@ const SignUp = () => {
   return (
     <StyledSignUp backgroundColor={theme.colors.backgroundColor}>
       <HeaderText color={theme.colors.textColor}>Sign Up</HeaderText>
+      <SignUpForm />
     </StyledSignUp>
   );
 };
@@ -21,6 +22,9 @@ const StyledSignUp = styled.View`
 `;
 
 const HeaderText = styled.Text`
+  font-size: 30;
+  text-align: center;
+  font-family: 'Lacquer-Regular';
   color: ${props => props.color || 'black'};
 `;
 

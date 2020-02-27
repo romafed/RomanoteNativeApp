@@ -6,7 +6,8 @@ import TextInput from '../../components/TextInput';
 const SignUp = () => {
   return (
     <StyledForm>
-      <TextInput label="Name" />
+      <TextInput label="Name:" />
+      <TextInput label="Email:" />
     </StyledForm>
   );
 };
