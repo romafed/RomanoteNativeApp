@@ -5,10 +5,11 @@
  * @format
  * @flow
  */
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {ThemeContext} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import theme from './src/theme/Theme';
 
 import ScreenTransitionAnimation from './animations/screen';
 
@@ -18,18 +19,15 @@ import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
 import NavigationHeader from './src/components/NavigationHeader';
 
-// Theme
-import themes from './src/theme/Theme';
-
 const Stack = createStackNavigator();
 
 const App = () => {
   const [isSwitchOn, setSwitchOn] = useState(false);
-  const {theme, replaceTheme} = useContext(ThemeContext);
+  const {replaceTheme} = useContext(ThemeContext);
 
   useEffect(() => {
-    if (isSwitchOn) return replaceTheme(themes.dark);
-    replaceTheme(themes.light);
+    if (isSwitchOn) return replaceTheme(theme.dark);
+    replaceTheme(theme.light);
   }, [isSwitchOn, replaceTheme]);
 
   return (
@@ -40,7 +38,6 @@ const App = () => {
             const {options} = scene.descriptor;
             return (
               <NavigationHeader
-                backgroundColor={theme.colors.backgroundColor}
                 onSwitch={() => setSwitchOn(!isSwitchOn)}
                 value={isSwitchOn}
                 style={options.headerStyle}
@@ -48,23 +45,12 @@ const App = () => {
             );
           },
           headerTransparent: true,
+          ...ScreenTransitionAnimation,
         }}
         initialRouteName="Hello">
-        <Stack.Screen
-          options={{...ScreenTransitionAnimation}}
-          name="Hello"
-          component={Hello}
-        />
-        <Stack.Screen
-          options={{...ScreenTransitionAnimation}}
-          name="LogIn"
-          component={LogIn}
-        />
-        <Stack.Screen
-          options={{...ScreenTransitionAnimation}}
-          name="SignUp"
-          component={SignUp}
-        />
+        <Stack.Screen name="Hello" component={Hello} />
+        <Stack.Screen name="LogIn" component={LogIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

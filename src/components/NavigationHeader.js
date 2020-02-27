@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {ThemeContext} from 'react-native-elements';
 import styled from 'styled-components';
 import {Switch, StatusBar} from 'react-native';
 
-const NavigationHeader = ({backgroundColor, onSwitch, value, style}) => {
+const NavigationHeader = ({onSwitch, value, style}) => {
+  const {theme} = useContext(ThemeContext);
+
   return (
     <Header style={style}>
-      <StatusBar backgroundColor={backgroundColor} />
+      <StatusBar backgroundColor={theme.colors.backgroundColor} />
       <StyledSwitch
         thumbColor={value ? 'rgb(255,255,255)' : 'rgb(56,39,22)'}
         trackColor={{
