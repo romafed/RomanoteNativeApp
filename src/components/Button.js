@@ -4,7 +4,7 @@ import {Button as ButtonUi, ThemeContext} from 'react-native-elements';
 const Button = ({type = 'solid', onPress, children}) => {
   const {theme} = useContext(ThemeContext);
   const buttonStyle = {
-    width: 250,
+    minWidth: 250,
     backgroundColor: type === 'solid' ? theme.colors.textColor : 'transparent',
   };
   const titleStyle = {

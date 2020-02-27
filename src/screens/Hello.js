@@ -9,7 +9,7 @@ import {LOGO} from '../../assets/image';
 
 const Hello = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
-  
+
   const handleScreenNavigate = to => {
     navigation.navigate(to);
   };

@@ -22,7 +22,7 @@ const StyledSignUp = styled.View`
 `;
 
 const HeaderText = styled.Text`
-  font-size: 30;
+  font-size: 30px;
   text-align: center;
   font-family: 'Lacquer-Regular';
   color: ${props => props.color || 'black'};

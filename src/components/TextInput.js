@@ -1,13 +1,17 @@
+/* eslint-disable curly */
+/* eslint-disable no-shadow */
 import React, {useState, useContext} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import {Input, ThemeContext} from 'react-native-elements';
 
 const TextInput = ({label, onChange, onBlur}) => {
-  const [isActive, setActive] = useState(false);
   const {theme} = useContext(ThemeContext);
+
+  const [isActive, setActive] = useState(false);
+  const [value, setValue] = useState('');
+
   const [top] = useState(new Animated.Value(20));
   const [border] = useState(new Animated.Value(0));
-  const [value, setValue] = useState('');
 
   const labelColor = {
     color: theme.colors.textColor,
@@ -18,7 +22,6 @@ const TextInput = ({label, onChange, onBlur}) => {
     borderWidth: isActive ? 4 : 2,
     borderBottomWidth: isActive ? 4 : 2,
   };
-
   const textColor = {
     color: theme.colors.textColor,
   };
@@ -46,6 +49,7 @@ const TextInput = ({label, onChange, onBlur}) => {
     }).start();
     setActive(true);
   };
+
   return (
     <View style={input}>
       <Animated.Text style={{...labelStyle, ...labelColor, top: top}}>
@@ -53,6 +57,7 @@ const TextInput = ({label, onChange, onBlur}) => {
       </Animated.Text>
       <Input
         value={value}
+        containerStyle={containerStyle}
         inputContainerStyle={{...inputContainerStyle, ...containerColor}}
         inputStyle={textColor}
         onChangeText={value => setValue(value)}
@@ -64,16 +69,23 @@ const TextInput = ({label, onChange, onBlur}) => {
   );
 };
 
-const {labelStyle, input, inputContainerStyle} = StyleSheet.create({
+const {
+  labelStyle,
+  input,
+  inputContainerStyle,
+  containerStyle,
+} = StyleSheet.create({
   input: {
+    width: '100%',
     height: 65,
     marginVertical: 10,
     position: 'relative',
     justifyContent: 'flex-end',
   },
   inputContainerStyle: {
-    padding: 5,
+    paddingVertical: 5,
     borderRadius: 10,
+    margin: 0,
   },
   labelStyle: {
     fontFamily: 'Lacquer-Regular',
@@ -81,7 +93,7 @@ const {labelStyle, input, inputContainerStyle} = StyleSheet.create({
     left: 20,
     fontSize: 18,
     zIndex: 1000,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
   },
 });
 
