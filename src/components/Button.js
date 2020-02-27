@@ -1,29 +1,28 @@
 import React, {useContext} from 'react';
-import styled, {ThemeContext} from 'styled-components';
-import {Button as ButtonPaper} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {ThemeContext} from 'styled-components';
+import {Button as ButtonUi} from 'react-native-elements';
 
-const Button = ({mode = 'contained', onPress, children}) => {
+const Button = ({type = 'solid', onPress, children}) => {
   const theme = useContext(ThemeContext);
-  const color =
-    mode === 'contained'
-      ? 'rgb(56,39,22)'
-      : theme.dark.color || theme.light.color;
+  console.log(theme);
   return (
-    <StyledButton
+    <ButtonUi
+      type={type}
+      buttonStyle={buttonStyle}
+      titleStyle={titleStyle}
+      title={children}
       onPress={onPress}
-      mode={mode}
-      labelStyle={{
-        color: color,
-      }}>
-      {children}
-    </StyledButton>
+    />
   );
 };
 
-const StyledButton = styled(ButtonPaper)`
-  min-width: 50%;
-  background-color: ${props =>
-    props.mode === 'contained' ? 'rgb(255,255,255)' : 'transparent'};
-`;
+const {buttonStyle, titleStyle} = StyleSheet.create({
+  buttonStyle: {
+    width: 250,
+    color: 'red',
+  },
+  titleStyle: {},
+});
 
 export default Button;

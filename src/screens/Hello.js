@@ -23,7 +23,7 @@ const Hello = ({navigation}) => {
       </ThumbWrapper>
       <ButtonWrapper>
         <Button onPress={() => handleScreenNavigate('SignUp')}>Sign Up</Button>
-        <Button onPress={() => handleScreenNavigate('LogIn')} mode="text">
+        <Button onPress={() => handleScreenNavigate('LogIn')} type="clear">
           Log In
         </Button>
       </ButtonWrapper>
