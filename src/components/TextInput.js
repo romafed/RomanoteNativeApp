@@ -8,11 +8,17 @@ import fromToAnimation from '../../animations/input';
 
 import Icon from 'react-native-vector-icons/Entypo';
 
-const TextInput = ({label, secure = false, onChange, onBlur}) => {
+const TextInput = ({
+  value,
+  label,
+  type = 'off',
+  secure = false,
+  onChange,
+  onBlur,
+}) => {
   const {theme} = useContext(ThemeContext);
   const input = useRef(null);
   const [isSecure, setSecure] = useState(secure);
-  const [value, setValue] = useState('');
 
   const [top] = useState(new Animated.Value(16));
   const [border] = useState(new Animated.Value(2));
@@ -28,34 +34,36 @@ const TextInput = ({label, secure = false, onChange, onBlur}) => {
     color: theme.colors.textColor,
   };
 
-  const handleOnBlur = () => {
+  const handleEndEditing = () => {
     fromToAnimation(border, 2);
     if (value) return null;
     fromToAnimation(top, 16);
   };
-  const handleOnFocus = () => {
+  const handleFocus = () => {
     fromToAnimation(border, 4);
     fromToAnimation(top, -16);
   };
 
-  const handleFocus = () => {
+  const handleFocusLabel = () => {
     input.current.focus();
   };
 
   return (
     <StyledInput style={{...containerColor, borderWidth: border}}>
-      <Label onPress={handleFocus} style={{...labelColor, top: top}}>
+      <Label onPress={handleFocusLabel} style={{...labelColor, top: top}}>
         {label}
       </Label>
       <StyledTextInput
         ref={input}
+        autoCompleteType={type}
         style={textColor}
         value={value}
-        onChangeText={value => setValue(value)}
-        onFocus={handleOnFocus}
-        onBlur={handleOnBlur}
-        editable={true}
+        onFocus={handleFocus}
+        onBlur={onBlur}
+        onEndEditing={handleEndEditing}
+        onChangeText={onChange}
         secureTextEntry={isSecure}
+        editable={true}
       />
       {secure && (
         <StyledIcon
@@ -88,10 +96,12 @@ const StyledTextInput = styled.TextInput`
 
 const Label = styled(Animated.Text)`
   font-family: 'Lacquer-Regular';
+  border-radius: 10px;
   position: absolute;
   left: 20px;
   font-size: 18px;
   z-index: 10;
+  margin: 0;
   padding: 0 10px;
 `;
 

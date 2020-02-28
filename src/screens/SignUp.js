@@ -10,6 +10,11 @@ const SignUp = () => {
     <StyledSignUp backgroundColor={theme.colors.backgroundColor}>
       <HeaderText color={theme.colors.textColor}>Sign Up</HeaderText>
       <SignUpForm />
+      <TermsAndConditions color={theme.colors.textColor}>
+        By creating an account, you agree to{' '}
+        <HeaderText fontSize={'16px'}>Romans:</HeaderText>
+      </TermsAndConditions>
+      <Link color={theme.colors.textColor}> Terms and Conditions</Link>
     </StyledSignUp>
   );
 };
@@ -22,10 +27,20 @@ const StyledSignUp = styled.View`
 `;
 
 const HeaderText = styled.Text`
-  font-size: 30px;
+  font-size: ${props => props.fontSize || '30px'};
   text-align: center;
   font-family: 'Lacquer-Regular';
   color: ${props => props.color || 'black'};
+`;
+
+const TermsAndConditions = styled.Text`
+  text-align: center;
+  margin-top: 10px;
+  color: ${props => props.color};
+`;
+const Link = styled.Text`
+  text-align: center;
+  color: blue;
 `;
 
 export default SignUp;
