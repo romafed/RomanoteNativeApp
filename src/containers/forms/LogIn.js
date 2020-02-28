@@ -6,10 +6,9 @@ import {useFormik} from 'formik';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
-const SignUp = () => {
+const LogIn = () => {
   const formik = useFormik({
     initialValues: {
-      name: '',
       email: '',
       password: '',
     },
@@ -19,14 +18,7 @@ const SignUp = () => {
   });
 
   return (
-    <StyledForm>
-      <TextInput
-        type="name"
-        value={formik.values.name}
-        label="Name:"
-        onChange={formik.handleChange('name')}
-        onBlur={formik.handleBlur('name')}
-      />
+    <StyledLogInForm>
       <TextInput
         type="email"
         value={formik.values.email}
@@ -43,14 +35,12 @@ const SignUp = () => {
         secure={true}
       />
       <Button onPress={formik.handleSubmit}>Submit</Button>
-    </StyledForm>
+    </StyledLogInForm>
   );
 };
 
-const StyledForm = styled.View`
+const StyledLogInForm = styled.View`
   width: 100%;
-  justify-content: center;
-  align-items: stretch;
 `;
 
-export default SignUp;
+export default LogIn;
