@@ -1,17 +1,21 @@
 /* eslint-disable curly */
 /* eslint-disable no-shadow */
-import React, {useState, useContext} from 'react';
-import {View, StyleSheet, Animated} from 'react-native';
-import {Input, ThemeContext} from 'react-native-elements';
+import React, {useState, useContext, useRef} from 'react';
+import styled from 'styled-components';
+import {Animated} from 'react-native';
+import {ThemeContext} from 'react-native-elements';
+import fromToAnimation from '../../animations/input';
 
-const TextInput = ({label, onChange, onBlur}) => {
+import Icon from 'react-native-vector-icons/Entypo';
+
+const TextInput = ({label, secure = false, onChange, onBlur}) => {
   const {theme} = useContext(ThemeContext);
-
-  const [isActive, setActive] = useState(false);
+  const input = useRef(null);
+  const [isSecure, setSecure] = useState(secure);
   const [value, setValue] = useState('');
 
-  const [top] = useState(new Animated.Value(20));
-  const [border] = useState(new Animated.Value(0));
+  const [top] = useState(new Animated.Value(16));
+  const [border] = useState(new Animated.Value(2));
 
   const labelColor = {
     color: theme.colors.textColor,
@@ -19,82 +23,81 @@ const TextInput = ({label, onChange, onBlur}) => {
   };
   const containerColor = {
     borderColor: theme.colors.textColor,
-    borderWidth: isActive ? 4 : 2,
-    borderBottomWidth: isActive ? 4 : 2,
   };
   const textColor = {
     color: theme.colors.textColor,
   };
 
   const handleOnBlur = () => {
-    setActive(false);
+    fromToAnimation(border, 2);
     if (value) return null;
-    Animated.spring(top, {
-      toValue: 20,
-      duration: 300,
-    }).start();
-    Animated.spring(border, {
-      toValue: 4,
-      duration: 300,
-    }).start();
+    fromToAnimation(top, 16);
   };
   const handleOnFocus = () => {
-    Animated.spring(top, {
-      toValue: -10,
-      duration: 300,
-    }).start();
-    Animated.spring(border, {
-      toValue: 0,
-      duration: 300,
-    }).start();
-    setActive(true);
+    fromToAnimation(border, 4);
+    fromToAnimation(top, -16);
+  };
+
+  const handleFocus = () => {
+    input.current.focus();
   };
 
   return (
-    <View style={input}>
-      <Animated.Text style={{...labelStyle, ...labelColor, top: top}}>
+    <StyledInput style={{...containerColor, borderWidth: border}}>
+      <Label onPress={handleFocus} style={{...labelColor, top: top}}>
         {label}
-      </Animated.Text>
-      <Input
+      </Label>
+      <StyledTextInput
+        ref={input}
+        style={textColor}
         value={value}
-        containerStyle={containerStyle}
-        inputContainerStyle={{...inputContainerStyle, ...containerColor}}
-        inputStyle={textColor}
         onChangeText={value => setValue(value)}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         editable={true}
+        secureTextEntry={isSecure}
       />
-    </View>
+      {secure && (
+        <StyledIcon
+          onPress={() => setSecure(value => !value)}
+          name={isSecure ? 'eye-with-line' : 'eye'}
+          size={30}
+          color={theme.colors.textColor}
+        />
+      )}
+    </StyledInput>
   );
 };
 
-const {
-  labelStyle,
-  input,
-  inputContainerStyle,
-  containerStyle,
-} = StyleSheet.create({
-  input: {
-    width: '100%',
-    height: 65,
-    marginVertical: 10,
-    position: 'relative',
-    justifyContent: 'flex-end',
-  },
-  inputContainerStyle: {
-    paddingVertical: 5,
-    borderRadius: 10,
-    margin: 0,
-  },
-  labelStyle: {
-    fontFamily: 'Lacquer-Regular',
-    position: 'absolute',
-    left: 20,
-    fontSize: 18,
-    zIndex: 1000,
-    paddingHorizontal: 10,
-  },
-});
+const StyledInput = styled(Animated.View)`
+  position: relative;
+  width: 100%;
+  height: 65px;
+  padding: 0 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-style: dotted;
+`;
+
+const StyledTextInput = styled.TextInput`
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+`;
+
+const Label = styled(Animated.Text)`
+  font-family: 'Lacquer-Regular';
+  position: absolute;
+  left: 20px;
+  font-size: 18px;
+  z-index: 10;
+  padding: 0 10px;
+`;
+
+const StyledIcon = styled(Icon)`
+  position: absolute;
+  right: 20px;
+`;
 
 export default TextInput;

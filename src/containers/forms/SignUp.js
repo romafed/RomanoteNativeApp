@@ -9,6 +9,7 @@ const SignUp = () => {
     <StyledForm>
       <TextInput label="Name:" />
       <TextInput label="Email:" />
+      <TextInput label="Password:" secure={true} />
       <Button>Submit</Button>
     </StyledForm>
   );
@@ -17,7 +18,7 @@ const SignUp = () => {
 const StyledForm = styled.View`
   width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 `;
 
 export default SignUp;
