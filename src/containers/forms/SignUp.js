@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import {useFormik} from 'formik';
+import {sigUpValidation} from '../../validation';
 
 // Components
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
+import InputError from '../../components/InputError';
 
 const SignUp = () => {
   const formik = useFormik({
@@ -13,6 +15,7 @@ const SignUp = () => {
       email: '',
       password: '',
     },
+    validationSchema: sigUpValidation,
     onSubmit: values => {
       console.log(values);
     },
@@ -27,6 +30,7 @@ const SignUp = () => {
         onChange={formik.handleChange('name')}
         onBlur={formik.handleBlur('name')}
       />
+      <InputError>lalal</InputError>
       <TextInput
         type="email"
         value={formik.values.email}
