@@ -17,6 +17,7 @@ import ScreenTransitionAnimation from './src/animations/screen';
 import Hello from './src/screens/Hello';
 import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
+import Note from './src/screens/Note';
 import NavigationHeader from './src/components/NavigationHeader';
 
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ const App = () => {
         <Stack.Screen name="Hello" component={Hello} />
         <Stack.Screen name="LogIn" component={LogIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Note" component={Note} />
       </Stack.Navigator>
     </NavigationContainer>
   );

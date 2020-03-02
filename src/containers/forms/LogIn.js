@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import AsyncStorage from '@react-native-community/async-storage';
 import { useFormik } from 'formik';
+import { useNavigation } from '@react-navigation/native';
 import { logInValidation } from '../../validation';
 
 // Components
@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import ErrorMessage from '../../components/ErrorMessage';
 
 const LogIn = ({ logInUser }) => {
+  const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -18,8 +19,8 @@ const LogIn = ({ logInUser }) => {
     validationSchema: logInValidation,
     onSubmit: async (values, { setFieldError }) => {
       try {
-        const token = await logInUser(values);
-        await AsyncStorage.setItem('token', token);
+        await logInUser(values);
+        navigation.navigate('Note');
       } catch (ex) {
         setFieldError('server', 'Server error');
       }
