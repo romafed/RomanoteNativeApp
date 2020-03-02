@@ -1,15 +1,15 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from 'react-native-elements';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'react-native-elements';
 import styled from 'styled-components';
 
-import LogInForm from '../containers/forms/LogIn';
+import Forms from '../containers/forms';
 
 const LogIn = () => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
     <StyledLogIn backgroundColor={theme.colors.backgroundColor}>
       <HeaderText color={theme.colors.textColor}>Log in</HeaderText>
-      <LogInForm />
+      <Forms.LogInForm />
       <ForgotPassword color={theme.colors.textColor}>
         Forgot password?
       </ForgotPassword>

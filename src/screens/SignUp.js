@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'react-native-elements';
 import styled from 'styled-components';
 
-import SignUpForm from '../containers/forms/SignUp';
+import Forms from '../containers/forms';
 
 const SignUp = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <StyledSignUp backgroundColor={theme.colors.backgroundColor}>
       <HeaderText color={theme.colors.textColor}>Sign Up</HeaderText>
-      <SignUpForm />
+      <Forms.SignUpForm />
       <TermsAndConditions color={theme.colors.textColor}>
         By creating an account, you agree to
         <HeaderText color={theme.colors.textColor} fontSize={'16px'}>

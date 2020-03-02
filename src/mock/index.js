@@ -22,6 +22,6 @@ export const logInUserMock = async ({ email, password }) => {
     delete user.password;
     return JSON.stringify(user);
   } catch (ex) {
-    throw new Error('ex');
+    throw new Error(ex);
   }
 };
