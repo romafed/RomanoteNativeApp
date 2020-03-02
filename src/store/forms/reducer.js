@@ -20,7 +20,7 @@ export default (state = initialState, { type, payload }) => {
     case actionType.CREATE_USER_REJECTED:
       return {
         ...state,
-        loading: true,
+        loading: false,
       };
     case actionType.LOGIN_USER_PENDING:
       return {
