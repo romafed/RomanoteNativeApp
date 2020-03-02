@@ -3,14 +3,12 @@ import { ThemeContext } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// Components
+import ScreenTransitionAnimation from '../../animations/screen';
 import Hello from '../../screens/Hello';
 import LogIn from '../../screens/LogIn';
 import SignUp from '../../screens/SignUp';
 import Note from '../../screens/Note';
 import NavigationHeader from '../../components/NavigationHeader';
-
-import ScreenTransitionAnimation from '../../animations/screen';
 
 import theme from '../../theme/Theme';
 
