@@ -6,7 +6,10 @@ export default {
     },
     Button: {
       titleStyle: {
-        color: 'white',
+        color: 'rgb(255,255,255)',
+      },
+      disabledStyle: {
+        backgroundColor: 'rgba(56,39,22,0.7)',
       },
     },
   },
@@ -17,7 +20,10 @@ export default {
     },
     Button: {
       titleStyle: {
-        color: 'white',
+        color: 'rgb(255,255,255)',
+      },
+      disabledStyle: {
+        backgroundColor: 'rgba(255,255,255,0.7)',
       },
     },
   },
