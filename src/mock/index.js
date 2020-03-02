@@ -6,7 +6,7 @@ export const createUserMock = async user => {
     if (exist) throw new Error('User is already exist');
     await AsyncStorage.setItem(user.email, JSON.stringify(user));
   } catch (ex) {
-    throw new Error(ex.message);
+    throw new Error(ex);
   }
 };
 
@@ -22,6 +22,6 @@ export const logInUserMock = async ({ email, password }) => {
     delete user.password;
     return JSON.stringify(user);
   } catch (ex) {
-    throw new Error('ex.message');
+    throw new Error('ex');
   }
 };
