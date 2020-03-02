@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
-import {Button as ButtonUi, ThemeContext} from 'react-native-elements';
+import React, { useContext } from 'react';
+import { Button as ButtonUi, ThemeContext } from 'react-native-elements';
 
-const Button = ({type = 'solid', onPress, children}) => {
-  const {theme} = useContext(ThemeContext);
+const Button = ({ type = 'solid', disabled = false, onPress, children }) => {
+  const { theme } = useContext(ThemeContext);
   const buttonStyle = {
     minWidth: 250,
     backgroundColor: type === 'solid' ? theme.colors.textColor : 'transparent',
@@ -11,15 +11,16 @@ const Button = ({type = 'solid', onPress, children}) => {
     color:
       theme.colors.textColor === 'rgb(255,255,255)'
         ? type === 'solid'
-          ? 'black'
+          ? 'rgb(56,39,22)'
           : theme.colors.textColor
         : type === 'clear'
         ? 'rgb(56,39,22)'
-        : 'white',
+        : 'rgb(255,255,255)',
   };
   return (
     <ButtonUi
       type={type}
+      disabled={disabled}
       buttonStyle={buttonStyle}
       titleStyle={titleStyle}
       title={children}

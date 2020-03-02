@@ -6,7 +6,6 @@ import { sigUpValidation } from '../../validation';
 // Components
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
-import InputError from '../../components/InputError';
 
 const SignUp = () => {
   const formik = useFormik({
@@ -29,15 +28,20 @@ const SignUp = () => {
         label="Name:"
         onChange={formik.handleChange('name')}
         onBlur={formik.handleBlur('name')}
-      />
-      <InputError>lalal</InputError>
+        error={formik.touched.name && formik.errors.name}
+      >
+        {formik.errors.name}
+      </TextInput>
       <TextInput
         type="email"
         value={formik.values.email}
         label="Email:"
         onChange={formik.handleChange('email')}
         onBlur={formik.handleBlur('email')}
-      />
+        error={formik.touched.email && formik.errors.email}
+      >
+        {formik.errors.email}
+      </TextInput>
       <TextInput
         type="password"
         value={formik.values.password}
@@ -45,8 +49,20 @@ const SignUp = () => {
         onChange={formik.handleChange('password')}
         onBlur={formik.handleBlur('password')}
         secure={true}
-      />
-      <Button onPress={formik.handleSubmit}>Submit</Button>
+        error={formik.touched.password && formik.errors.password}
+      >
+        {formik.errors.password}
+      </TextInput>
+      <Button
+        disabled={
+          (Object.keys(formik.touched).length <= 0 &&
+            Object.keys(formik.errors).length >= 0) ||
+          Object.keys(formik.errors).length > 0
+        }
+        onPress={formik.handleSubmit}
+      >
+        Submit
+      </Button>
     </StyledForm>
   );
 };

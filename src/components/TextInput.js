@@ -1,22 +1,25 @@
 /* eslint-disable curly */
 /* eslint-disable no-shadow */
-import React, {useState, useContext, useRef} from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
-import {Animated} from 'react-native';
-import {ThemeContext} from 'react-native-elements';
+import { Animated } from 'react-native';
+import { ThemeContext } from 'react-native-elements';
 import fromToAnimation from '../../animations/input';
 
 import Icon from 'react-native-vector-icons/Entypo';
+import InputError from './InputError';
 
 const TextInput = ({
   value,
   label,
   type = 'off',
+  error = false,
+  children = '',
   secure = false,
   onChange,
   onBlur,
 }) => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const input = useRef(null);
   const [isSecure, setSecure] = useState(secure);
 
@@ -49,13 +52,12 @@ const TextInput = ({
   };
 
   return (
-    <StyledInput style={{...containerColor, borderWidth: border}}>
-      <Label onPress={handleFocusLabel} style={{...labelColor, top: top}}>
+    <StyledInput style={{ ...containerColor, borderWidth: border }}>
+      <Label onPress={handleFocusLabel} style={{ ...labelColor, top: top }}>
         {label}
       </Label>
       <StyledTextInput
         ref={input}
-        autoCompleteType={type}
         style={textColor}
         value={value}
         onFocus={handleFocus}
@@ -63,6 +65,7 @@ const TextInput = ({
         onEndEditing={handleEndEditing}
         onChangeText={onChange}
         secureTextEntry={isSecure}
+        autoCompleteType={type}
         editable={true}
       />
       {secure && (
@@ -73,6 +76,9 @@ const TextInput = ({
           color={theme.colors.textColor}
         />
       )}
+      <InputError color={theme.colors.backgroundColor} show={error}>
+        {children}
+      </InputError>
     </StyledInput>
   );
 };
@@ -82,6 +88,7 @@ const StyledInput = styled(Animated.View)`
   width: 100%;
   height: 65px;
   padding: 0 10px;
+  align-items: flex-end;
   justify-content: center;
   margin-bottom: 15px;
   border-radius: 10px;

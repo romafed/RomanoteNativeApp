@@ -6,7 +6,7 @@ export const sigUpValidation = Yup.object().shape({
     .max(30, 'To long name')
     .required('Name is required'),
   email: Yup.string()
-    .email()
+    .email('Email is not valid')
     .required('Email is required'),
   password: Yup.string()
     .min(4, 'To small password')
