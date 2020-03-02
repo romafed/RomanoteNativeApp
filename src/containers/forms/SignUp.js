@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useFormik} from 'formik';
-import {sigUpValidation} from '../../validation';
+import { useFormik } from 'formik';
+import { sigUpValidation } from '../../validation';
 
 // Components
 import TextInput from '../../components/TextInput';

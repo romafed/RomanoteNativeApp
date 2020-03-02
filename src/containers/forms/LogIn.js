@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 
 // Components
 import TextInput from '../../components/TextInput';
