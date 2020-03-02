@@ -1,21 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import AsyncStorage from '@react-native-community/async-storage';
 import { useFormik } from 'formik';
 import { logInValidation } from '../../validation';
 
 // Components
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
+import ErrorMessage from '../../components/ErrorMessage';
 
-const LogIn = () => {
+const LogIn = ({ logInUser }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
     validationSchema: logInValidation,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async (values, { setFieldError }) => {
+      try {
+        const token = await logInUser(values);
+        await AsyncStorage.setItem('token', token);
+      } catch (ex) {
+        setFieldError('server', 'Server error');
+      }
     },
   });
 
@@ -51,6 +58,7 @@ const LogIn = () => {
       >
         Submit
       </Button>
+      <ErrorMessage>{formik.errors.server}</ErrorMessage>
     </StyledLogInForm>
   );
 };
