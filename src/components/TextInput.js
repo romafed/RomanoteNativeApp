@@ -1,10 +1,8 @@
-/* eslint-disable curly */
-/* eslint-disable no-shadow */
 import React, { useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { Animated } from 'react-native';
 import { ThemeContext } from 'react-native-elements';
-import fromToAnimation from '../../animations/input';
+import fromToAnimation from '../../src/animations/input';
 
 import Icon from 'react-native-vector-icons/Entypo';
 import InputError from './InputError';

@@ -14,7 +14,7 @@ const animation = {
     close: TransitionSpecs.TransitionIOSSpec,
   },
   headerStyleInterpolator: HeaderStyleInterpolators.forNoAnimation,
-  cardStyleInterpolator: ({current, next, layouts}) => {
+  cardStyleInterpolator: ({ current, next, layouts }) => {
     return {
       cardStyle: {
         transform: [
