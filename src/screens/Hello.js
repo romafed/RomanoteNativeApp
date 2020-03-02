@@ -1,14 +1,14 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from 'react-native-elements';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'react-native-elements';
 import styled from 'styled-components';
 
 // Components
 import Button from '../components/Button';
 
-import {LOGO} from '../../assets/image';
+import { LOGO } from '../../assets/image';
 
-const Hello = ({navigation}) => {
-  const {theme} = useContext(ThemeContext);
+const Hello = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
 
   const handleScreenNavigate = to => {
     navigation.navigate(to);

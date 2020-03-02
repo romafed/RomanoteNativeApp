@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
+import { useNavigation } from '@react-navigation/native';
+
 import { sigUpValidation } from '../../validation';
 
 // Components
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
+import ErrorMessage from '../../components/ErrorMessage';
 
-const SignUp = () => {
+const SignUp = ({ createUser }) => {
+  const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -15,8 +19,13 @@ const SignUp = () => {
       password: '',
     },
     validationSchema: sigUpValidation,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async (values, { setFieldError }) => {
+      try {
+        await createUser(values);
+        navigation.navigate('LogIn');
+      } catch (ex) {
+        setFieldError('server', 'User is already exist');
+      }
     },
   });
 
@@ -62,6 +71,7 @@ const SignUp = () => {
       >
         Submit
       </Button>
+      <ErrorMessage>{formik.errors.server}</ErrorMessage>
     </StyledForm>
   );
 };
