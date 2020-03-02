@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
+import { logInValidation } from '../../validation';
 
 // Components
 import TextInput from '../../components/TextInput';
@@ -12,6 +13,7 @@ const LogIn = () => {
       email: '',
       password: '',
     },
+    validationSchema: logInValidation,
     onSubmit: values => {
       console.log(values);
     },
@@ -25,7 +27,10 @@ const LogIn = () => {
         label="Email:"
         onChange={formik.handleChange('email')}
         onBlur={formik.handleBlur('email')}
-      />
+        error={formik.touched.email && formik.errors.email}
+      >
+        {formik.errors.email}
+      </TextInput>
       <TextInput
         type="password"
         value={formik.values.password}
@@ -33,8 +38,19 @@ const LogIn = () => {
         onChange={formik.handleChange('password')}
         onBlur={formik.handleBlur('password')}
         secure={true}
-      />
-      <Button onPress={formik.handleSubmit}>Submit</Button>
+        error={formik.touched.password && formik.errors.password}
+      >
+        {formik.errors.password}
+      </TextInput>
+      <Button
+        disabled={
+          Object.keys(formik.touched).length <= 0 ||
+          Object.keys(formik.errors).length > 0
+        }
+        onPress={formik.handleSubmit}
+      >
+        Submit
+      </Button>
     </StyledLogInForm>
   );
 };

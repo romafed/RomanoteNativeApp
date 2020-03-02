@@ -13,3 +13,13 @@ export const sigUpValidation = Yup.object().shape({
     .max(10, 'To big password')
     .required('Password is required'),
 });
+
+export const logInValidation = Yup.object().shape({
+  email: Yup.string()
+    .email('Email is not valid')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(4, 'To small password')
+    .max(10, 'To big password')
+    .required('Password is required'),
+});

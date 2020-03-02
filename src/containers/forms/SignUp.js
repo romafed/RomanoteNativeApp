@@ -55,8 +55,7 @@ const SignUp = () => {
       </TextInput>
       <Button
         disabled={
-          (Object.keys(formik.touched).length <= 0 &&
-            Object.keys(formik.errors).length >= 0) ||
+          Object.keys(formik.touched).length <= 0 ||
           Object.keys(formik.errors).length > 0
         }
         onPress={formik.handleSubmit}
