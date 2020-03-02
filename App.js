@@ -34,6 +34,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName="Hello"
         screenOptions={{
           header: ({ scene }) => {
             const { options } = scene.descriptor;
@@ -48,7 +49,6 @@ const App = () => {
           headerTransparent: true,
           ...ScreenTransitionAnimation,
         }}
-        initialRouteName="Hello"
       >
         <Stack.Screen name="Hello" component={Hello} />
         <Stack.Screen name="LogIn" component={LogIn} />

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import * as mock from '../../mock';
+import * as mock from '../../../mock';
 
 export const createUser = async user => {
   try {
