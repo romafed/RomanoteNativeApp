@@ -3,15 +3,17 @@ import { ThemeContext } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import ScreenTransitionAnimation from '../../animations/screen';
-import Hello from '../../screens/Hello';
-import LogIn from '../../screens/LogIn';
-import SignUp from '../../screens/SignUp';
-import Note from '../../screens/Note';
+// Components
+import Screens from '../../screens';
 import NavigationHeader from '../../components/NavigationHeader';
 
+// Animation
+import ScreenTransitionAnimation from '../../animations/screen';
+
+// Theme
 import theme from '../../theme/Theme';
 
+// Stack
 const Stack = createStackNavigator();
 
 const Navigation = () => {
@@ -41,10 +43,10 @@ const Navigation = () => {
           ...ScreenTransitionAnimation,
         }}
       >
-        <Stack.Screen name="Hello" component={Hello} />
-        <Stack.Screen name="LogIn" component={LogIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Note" component={Note} />
+        <Stack.Screen name="Hello" component={Screens.Hello} />
+        <Stack.Screen name="LogIn" component={Screens.LogIn} />
+        <Stack.Screen name="SignUp" component={Screens.SignUp} />
+        <Stack.Screen name="Note" component={Screens.Note} />
       </Stack.Navigator>
     </NavigationContainer>
   );
