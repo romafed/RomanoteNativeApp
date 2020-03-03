@@ -8,5 +8,5 @@ export const checkToken = () => ({
 
 export const setToken = token => ({
   type: actionType.SET_TOKEN,
-  payload: api.setToken(token),
+  payload: token ? api.setToken(token) : api.removeToken(),
 });

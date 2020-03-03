@@ -16,7 +16,7 @@ import theme from '../../theme/Theme';
 // Stack
 const Stack = createStackNavigator();
 
-const Navigation = ({ loading, token, checkToken }) => {
+const Navigation = ({ loading, token, checkToken, setToken }) => {
   const [isSwitchOn, setSwitchOn] = useState(false);
   const { replaceTheme } = useContext(ThemeContext);
 

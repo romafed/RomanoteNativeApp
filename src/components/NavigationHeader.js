@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from 'react-native-elements';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'react-native-elements';
 import styled from 'styled-components';
-import {Switch, StatusBar} from 'react-native';
+import { Switch, StatusBar } from 'react-native';
 
-const NavigationHeader = ({onSwitch, value, style}) => {
-  const {theme} = useContext(ThemeContext);
+const NavigationHeader = ({ onSwitch, value, style }) => {
+  const { theme } = useContext(ThemeContext);
 
   return (
     <Header style={style}>

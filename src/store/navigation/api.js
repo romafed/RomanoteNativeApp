@@ -17,3 +17,11 @@ export const setToken = async token => {
     throw new Error(ex);
   }
 };
+
+export const removeToken = async () => {
+  try {
+    await AsyncStorage.removeItem('token');
+  } catch (ex) {
+    throw new Error(ex);
+  }
+};
