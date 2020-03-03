@@ -21,16 +21,19 @@ const Navigation = ({ loading, token, checkToken }) => {
   const { replaceTheme } = useContext(ThemeContext);
 
   useEffect(() => {
-    if (!token) checkToken();
-
     if (isSwitchOn) return replaceTheme(theme.dark);
     replaceTheme(theme.light);
   }, [isSwitchOn, replaceTheme, token, checkToken]);
 
+  useEffect(() => {
+    if (!token) checkToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Hello"
+        initialRouteName={token ? 'Note' : 'Hello'}
         screenOptions={{
           header: ({ scene }) => {
             const { options } = scene.descriptor;
@@ -46,10 +49,17 @@ const Navigation = ({ loading, token, checkToken }) => {
           ...ScreenTransitionAnimation,
         }}
       >
-        <Stack.Screen name="Hello" component={Screens.Hello} />
-        <Stack.Screen name="LogIn" component={Screens.LogIn} />
-        <Stack.Screen name="SignUp" component={Screens.SignUp} />
-        <Stack.Screen name="Note" component={Screens.Note} />
+        {loading ? (
+          <Stack.Screen name="Loading" component={Screens.Loading} />
+        ) : !token ? (
+          <>
+            <Stack.Screen name="Hello" component={Screens.Hello} />
+            <Stack.Screen name="LogIn" component={Screens.LogIn} />
+            <Stack.Screen name="SignUp" component={Screens.SignUp} />
+          </>
+        ) : (
+          <Stack.Screen name="Note" component={Screens.Note} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

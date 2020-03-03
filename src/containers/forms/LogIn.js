@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
-import { useNavigation } from '@react-navigation/native';
 import { logInValidation } from '../../validation';
 
 // Components
@@ -10,7 +9,6 @@ import Button from '../../components/Button';
 import ErrorMessage from '../../components/ErrorMessage';
 
 const LogIn = ({ handleLogInUser }) => {
-  const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -20,7 +18,6 @@ const LogIn = ({ handleLogInUser }) => {
     onSubmit: async (values, { setFieldError }) => {
       try {
         await handleLogInUser(values);
-        navigation.navigate('Note');
       } catch (ex) {
         setFieldError('server', 'Password or Email is incorrect');
       }

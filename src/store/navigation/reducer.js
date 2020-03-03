@@ -1,7 +1,7 @@
 import actionType from './actionType';
 
 const initialState = {
-  loading: false,
+  loading: true,
   token: null,
 };
 
