@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import * as mock from '../../../mock';
 
 export const createUser = async user => {
@@ -14,7 +13,7 @@ export const logInUser = async values => {
   try {
     // Fake call api
     const token = await mock.logInUserMock(values);
-    await AsyncStorage.setItem('token', token);
+    return token;
   } catch (ex) {
     throw new Error(ex.message);
   }

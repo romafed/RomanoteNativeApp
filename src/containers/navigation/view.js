@@ -16,14 +16,17 @@ import theme from '../../theme/Theme';
 // Stack
 const Stack = createStackNavigator();
 
-const Navigation = () => {
+const Navigation = ({ loading, token, checkToken }) => {
   const [isSwitchOn, setSwitchOn] = useState(false);
   const { replaceTheme } = useContext(ThemeContext);
 
   useEffect(() => {
+    if (!token) checkToken();
+
     if (isSwitchOn) return replaceTheme(theme.dark);
     replaceTheme(theme.light);
-  }, [isSwitchOn, replaceTheme]);
+  }, [isSwitchOn, replaceTheme, token, checkToken]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator

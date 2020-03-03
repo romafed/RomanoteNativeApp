@@ -7,7 +7,7 @@
  */
 import React from 'react';
 
-import Navigation from './src/containers/navigation/view';
+import Navigation from './src/containers/navigation';
 
 import { Provider } from 'react-redux';
 import store from './src/store/store';

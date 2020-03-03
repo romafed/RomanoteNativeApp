@@ -9,7 +9,7 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import ErrorMessage from '../../components/ErrorMessage';
 
-const LogIn = ({ logInUser }) => {
+const LogIn = ({ handleLogInUser }) => {
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
@@ -19,10 +19,10 @@ const LogIn = ({ logInUser }) => {
     validationSchema: logInValidation,
     onSubmit: async (values, { setFieldError }) => {
       try {
-        await logInUser(values);
+        await handleLogInUser(values);
         navigation.navigate('Note');
       } catch (ex) {
-        setFieldError('server', 'Server error');
+        setFieldError('server', 'Password or Email is incorrect');
       }
     },
   });

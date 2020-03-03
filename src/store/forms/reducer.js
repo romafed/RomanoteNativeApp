@@ -2,7 +2,7 @@ import actionType from './actionType';
 
 const initialState = {
   loading: false,
-  token: null,
+  user: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -22,21 +22,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
       };
-    case actionType.LOGIN_USER_PENDING:
+    case actionType.LOGIN_USER:
+      const user = JSON.parse(payload);
       return {
         ...state,
-        loading: true,
-      };
-    case actionType.LOGIN_USER_FULFILLED:
-      return {
-        ...state,
-        loading: false,
-        token: payload,
-      };
-    case actionType.LOGIN_USER_REJECTED:
-      return {
-        ...state,
-        loading: false,
+        user,
       };
     default:
       return state;
