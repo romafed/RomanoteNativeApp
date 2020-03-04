@@ -56,7 +56,10 @@ const Navigation = ({ loading, token, checkToken }) => {
             <Stack.Screen name="SignUp" component={Screens.SignUp} />
           </>
         ) : (
-          <Stack.Screen name="Note" component={Screens.Note} />
+          <>
+            <Stack.Screen name="Note" component={Screens.Note} />
+            <Stack.Screen name="NoteEditor" component={Screens.NoteEditor} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

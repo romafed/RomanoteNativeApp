@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { ThemeContext } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Icon as IconRnc } from 'react-native-elements';
-const Note = ({ setToken }) => {
+
+const Note = ({ setToken, navigation }) => {
   const { theme } = useContext(ThemeContext);
 
   const handleLogOut = () => {
     setToken(null);
   };
+
   return (
     <StyledNote backgroundColor={theme.colors.backgroundColor}>
       <StyledIcon
@@ -17,7 +19,7 @@ const Note = ({ setToken }) => {
         onPress={handleLogOut}
       />
       <IconRnc
-        onPress={() => console.log('HEllo')}
+        onPress={() => navigation.navigate('NoteEditor')}
         name="note-add"
         type="material"
         raised

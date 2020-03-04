@@ -30,7 +30,6 @@ export default (state = initialState, { type, payload }) => {
         loading: true,
       };
     case actionType.SET_TOKEN_FULFILLED:
-      console.log(payload);
       return {
         ...state,
         loading: false,
