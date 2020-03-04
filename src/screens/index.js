@@ -1,7 +1,7 @@
 import Hello from './Hello';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
-import Note from '../containers/note';
+import Note from './Note';
 import Loading from './Loading';
 import NoteEditor from './NoteEditor';
 

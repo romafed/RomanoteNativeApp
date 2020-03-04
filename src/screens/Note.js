@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from 'react-native-elements';
+
+// Redux
+import { useDispatch } from 'react-redux';
+import { setToken } from '../store/navigation/actions';
+
+// Components
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Icon as IconRnc } from 'react-native-elements';
 
-const Note = ({ setToken, navigation }) => {
+const Note = ({ navigation }) => {
   const { theme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    setToken(null);
+    dispatch(setToken(null));
   };
 
   return (
