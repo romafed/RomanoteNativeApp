@@ -8,7 +8,10 @@ import Screens from '../../screens';
 import NavigationHeader from '../../components/NavigationHeader';
 
 // Animation
-import ScreenTransitionAnimation from '../../animations/screen';
+import {
+  AuthScreensAnimation,
+  NoteScreensAnimation,
+} from '../../animations/screen';
 
 // Theme
 import theme from '../../theme/Theme';
@@ -46,19 +49,38 @@ const Navigation = ({ loading, token, checkToken }) => {
             );
           },
           headerTransparent: true,
-          ...ScreenTransitionAnimation,
         }}
       >
         {!token ? (
           <>
-            <Stack.Screen name="Hello" component={Screens.Hello} />
-            <Stack.Screen name="LogIn" component={Screens.LogIn} />
-            <Stack.Screen name="SignUp" component={Screens.SignUp} />
+            <Stack.Screen
+              name="Hello"
+              component={Screens.Hello}
+              options={{ ...AuthScreensAnimation }}
+            />
+            <Stack.Screen
+              name="LogIn"
+              component={Screens.LogIn}
+              options={{ ...AuthScreensAnimation }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={Screens.SignUp}
+              options={{ ...AuthScreensAnimation }}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Note" component={Screens.Note} />
-            <Stack.Screen name="NoteEditor" component={Screens.NoteEditor} />
+            <Stack.Screen
+              name="Note"
+              component={Screens.Note}
+              options={{ ...NoteScreensAnimation }}
+            />
+            <Stack.Screen
+              name="NoteEditor"
+              component={Screens.NoteEditor}
+              options={{ ...NoteScreensAnimation }}
+            />
           </>
         )}
       </Stack.Navigator>
