@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-
+import { Icon as IconRnc } from 'react-native-elements';
 const Note = ({ setToken }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -16,7 +16,12 @@ const Note = ({ setToken }) => {
         name="logout"
         onPress={handleLogOut}
       />
-      <Header color={theme.colors.textColor}>Note screen</Header>
+      <IconRnc
+        onPress={() => console.log('HEllo')}
+        name="note-add"
+        type="material"
+        raised
+      />
     </StyledNote>
   );
 };
@@ -24,12 +29,7 @@ const Note = ({ setToken }) => {
 const StyledNote = styled.View`
   position: relative;
   flex: 1;
-  align-items: center;
-  justify-content: center;
   background-color: ${props => props.backgroundColor || 'white'};
-`;
-const Header = styled.Text`
-  color: ${props => props.color};
 `;
 
 const StyledIcon = styled(Icon)`

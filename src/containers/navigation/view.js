@@ -16,7 +16,7 @@ import theme from '../../theme/Theme';
 // Stack
 const Stack = createStackNavigator();
 
-const Navigation = ({ loading, token, checkToken, setToken }) => {
+const Navigation = ({ loading, token, checkToken }) => {
   const [isSwitchOn, setSwitchOn] = useState(false);
   const { replaceTheme } = useContext(ThemeContext);
 
@@ -49,9 +49,7 @@ const Navigation = ({ loading, token, checkToken, setToken }) => {
           ...ScreenTransitionAnimation,
         }}
       >
-        {loading ? (
-          <Stack.Screen name="Loading" component={Screens.Loading} />
-        ) : !token ? (
+        {!token ? (
           <>
             <Stack.Screen name="Hello" component={Screens.Hello} />
             <Stack.Screen name="LogIn" component={Screens.LogIn} />

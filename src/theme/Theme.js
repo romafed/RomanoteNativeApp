@@ -12,6 +12,17 @@ export default {
         backgroundColor: 'rgba(56,39,22,0.7)',
       },
     },
+    Icon: {
+      containerStyle: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+      },
+      color: 'rgb(56,39,22)',
+      reverse: true,
+      reverseColor: 'rgb(233, 224, 182)',
+      size: 30,
+    },
   },
   dark: {
     colors: {
@@ -25,6 +36,14 @@ export default {
       disabledStyle: {
         backgroundColor: 'rgba(255,255,255,0.7)',
       },
+    },
+    Icon: {
+      containerStyle: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+      },
+      size: 30,
     },
   },
 };
