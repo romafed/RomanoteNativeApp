@@ -44,9 +44,9 @@ export const AuthScreensAnimation = {
 export const NoteScreensAnimation = {
   gestureEnabled: true,
   gestureResponseDistance: {
-    horizontal: 70,
+    vertical: 200,
   },
-  gestureDirection: 'horizontal',
+  gestureDirection: 'horizontal-inverted',
   transitionSpec: {
     open: TransitionSpecs.TransitionIOSSpec,
     close: TransitionSpecs.TransitionIOSSpec,
