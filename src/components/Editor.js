@@ -4,6 +4,8 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Animated, Keyboard } from 'react-native';
 import useKeyboardStatus from '../hooks/useKeyboardStatus';
 
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
+
 import { ThemeContext } from 'react-native-elements';
 import Markdown from 'react-native-markdown-display';
 import markDownStyle from '../markdown/styles';
@@ -29,9 +31,6 @@ const Editor = () => {
   `);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [inputPositionY] = useState(new Animated.Value(-495));
-  const [markdownPositionY] = useState(new Animated.Value(0));
-  const [arrowRotate] = useState(new Animated.Value(1));
 
   const keyboardStatus = useKeyboardStatus();
   const input = useRef(null);
@@ -40,23 +39,34 @@ const Editor = () => {
     setValue(value);
   };
 
-  const topBottomAnimation = () => {
-    setIsOpen(!isOpen);
-    Animated.stagger(90, [
-      Animated.spring(inputPositionY, {
-        toValue: isOpen ? -495 : 0,
-        useNativeDriver: true,
-      }),
-      Animated.spring(markdownPositionY, {
-        toValue: isOpen ? 0 : 495,
-        useNativeDriver: true,
-      }),
-      Animated.timing(arrowRotate, {
-        toValue: isOpen ? 1 : 0,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start();
+  const [translateY] = useState(new Animated.Value(0));
+
+  const handlerGesture = Animated.event(
+    [
+      {
+        nativeEvent: { absoluteY: translateY },
+      },
+    ],
+    { useNativeDriver: true },
+  );
+
+  const handlerGestureState = ({ nativeEvent }) => {
+    if (nativeEvent.state === State.END) {
+      if (nativeEvent.absoluteY >= 50) {
+        Animated.spring(translateY, {
+          toValue: 500,
+          useNativeDriver: true,
+        }).start();
+        setIsOpen(true);
+      }
+      if (nativeEvent.absoluteY < 400) {
+        Animated.spring(translateY, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
+        setIsOpen(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -65,6 +75,7 @@ const Editor = () => {
       input.current.blur();
     }
     if (isOpen && !keyboardStatus) {
+      console.log('Focused');
       input.current.focus();
     }
   }, [isOpen, input.current]);
@@ -72,7 +83,7 @@ const Editor = () => {
   return (
     <StyledEditor>
       <MarkdownInputContainer
-        style={{ transform: [{ translateY: inputPositionY }] }}
+        style={{ transform: [{ translateY: translateY }] }}
       >
         <MarkdownInput
           ref={input}
@@ -82,26 +93,30 @@ const Editor = () => {
           multiline={true}
         />
         <ArrowContainer>
-          <ArrowIcon
-            color={theme.colors.textColor}
-            style={{
-              transform: [
-                {
-                  rotate: arrowRotate.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['-180deg', '0deg'],
-                  }),
-                },
-              ],
-            }}
-            onPress={topBottomAnimation}
-            name="ios-arrow-down"
-          />
+          <PanGestureHandler
+            onGestureEvent={handlerGesture}
+            onHandlerStateChange={handlerGestureState}
+          >
+            <ArrowIcon
+              color={theme.colors.textColor}
+              style={{
+                transform: [
+                  {
+                    rotate: translateY.interpolate({
+                      inputRange: [0, 500],
+                      outputRange: ['0deg', '180deg'],
+                    }),
+                  },
+                ],
+              }}
+              name="ios-arrow-down"
+            />
+          </PanGestureHandler>
         </ArrowContainer>
       </MarkdownInputContainer>
       <MarkdownContainer
         style={{
-          transform: [{ translateY: markdownPositionY }],
+          transform: [{ translateY: translateY }],
         }}
       >
         <MarkdownView>
@@ -124,10 +139,22 @@ const StyledEditor = styled.View`
 
 const MarkdownInputContainer = styled(Animated.View)`
   position: absolute;
+  top: -500px;
   align-items: center;
   justify-content: flex-end;
   height: 500px;
   width: 100%;
+`;
+
+const ArrowContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+const ArrowIcon = styled(AnimatedIcon)`
+  font-size: 40px;
+  color: ${props => props.color || 'black'};
 `;
 
 const MarkdownInput = styled.TextInput`
@@ -142,18 +169,6 @@ const MarkdownContainer = styled(Animated.View)`
 `;
 const MarkdownView = styled.ScrollView`
   padding: 0 10px;
-`;
-
-const ArrowContainer = styled.View`
-  min-height: 35px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const AnimatedIcon = Animated.createAnimatedComponent(Icon);
-const ArrowIcon = styled(AnimatedIcon)`
-  font-size: 40px;
-  color: ${props => props.color || 'black'};
 `;
 
 export default Editor;
